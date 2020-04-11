@@ -76,7 +76,7 @@
     
     
     
-    <article id="post-学习Python时整理的笔记" class="article article-type-post" itemscope
+    <article id="post-Python笔记（一）" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -84,8 +84,8 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/04/05/%E5%AD%A6%E4%B9%A0Python%E6%97%B6%E6%95%B4%E7%90%86%E7%9A%84%E7%AC%94%E8%AE%B0/"
-    >学习Python时整理的笔记</a> 
+  <a class="article-title" href="/2020/04/05/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/"
+    >Python笔记(一)</a> 
 </h2>
  
 
@@ -94,7 +94,7 @@
 
     
     <div class="article-meta">
-      <a href="/2020/04/05/%E5%AD%A6%E4%B9%A0Python%E6%97%B6%E6%95%B4%E7%90%86%E7%9A%84%E7%AC%94%E8%AE%B0/" class="article-date">
+      <a href="/2020/04/05/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-date">
   <time datetime="2020-04-05T06:35:32.000Z" itemprop="datePublished">2020-04-05</time>
 </a>
       
@@ -125,7 +125,8 @@
     具体的配置可以去B站搜搜看，这里我提供一个地址（也许会失效）：
     https://www.bilibili.com/video/BV17b411e7M9?from=search&amp;seid=4945926071261645762
 
-    Eclips也可以配置Python环境，然后创建文件就可以了。奇猫的第一个视频会有详细步骤，如果遇到乱码，那么就是编码集出了问题。你需要调整一下你的编码集</code></pre><p>1-2 变量与解释器内存管理</p>
+    Eclips也可以配置Python环境，然后创建文件就可以了。奇猫的第一个视频会有详细步骤，如果遇到乱码，
+    那么就是编码集出了问题。你需要调整一下你的编码集</code></pre><p>1-2 变量与解释器内存管理</p>
 <pre><code>变量：
 例如：a = 1   地址:0x1122  b = 2 地址：0x3344
      改 a 的值 a = 2 地址 0x3344  
@@ -134,7 +135,9 @@
 解释器内存管理机制:
 
  先取一定数量的大小为256Kb的arenas空间，然后以链表的形式记录里面用过的空间。
- 每一个arenas也是以链表的方式进行连接，每一个arenas中用过的数据都是以链表的方式连接，没用过的内容也是以链表方式连接。当你调用值时，那么先从已经记录过的地址去寻找，如果没有就新开辟一个地址。python解释器的垃圾回收机制是不会把你这个内存释放的，使用申请到一定量就不能申请了，只能从空闲的地址或arenas里面调用了。</code></pre><p> 1-3 python的基本语法<br>     连接符”反斜杠”：<br>         连接多个物理行，例如：<br>         display = “ This is test func反斜杠<br>                     This is test func反斜杠<br>                     This is test func”</p>
+ 每一个arenas也是以链表的方式进行连接，每一个arenas中用过的数据都是以链表的方式连接，没用过的内容也是以链表方式连接。
+ 当你调用值时，那么先从已经记录过的地址去寻找，如果没有就新开辟一个地址。python解释器的垃圾回收机制是不会把你这个内存释放的，
+ 使用申请到一定量就不能申请了，只能从空闲的地址或arenas里面调用了。</code></pre><p> 1-3 python的基本语法<br>     连接符”反斜杠”：<br>         连接多个物理行，例如：<br>         display = “ This is test func反斜杠<br>                     This is test func反斜杠<br>                     This is test func”</p>
 <pre><code> 引号：
      单引号、双引号、三引号标识字符：
      str = &apos;HelloWord&apos;
@@ -262,7 +265,8 @@ unicode字符串
     unicode:是为了解决传统的字符编码方案的局限而产生的，它为每种 语言中的每个字符设定了统一并且唯一的二进制编码，以满足跨语言、跨平台进行文本转换。每个unicode字符占2个字节 
 
     unicode显示中国两个字的过程:
-    先进行encoder（utf-8）编码成 xx\xx\xx\xx 找到对应的字模，然后和字符集GB2312、utf-8、GBK进行匹配，最后传入终端设置编码的格式。
+    先进行encoder（utf-8）编码成 xx\xx\xx\xx 找到对应的字模，然后和字符集GB2312、utf-8、GBK进行匹配，
+    最后传入终端设置编码的格式。
 
 unicode编码格式
     ASCII，ISO-8859-1， UTF-8, UTF-16
@@ -331,7 +335,7 @@ unicode编码格式
 可变：元组和列表的结合，元组不可变，但是元组里面的可变元素还是可以变的。
 元组不可变的应用场景：如果我们把数据传给一个不了解的API接口，同时希望数据不能被改变，此时就可以使用元组
 
-深拷贝和浅拷贝：等我了解清楚再来。</code></pre><p>2-6 数据结构-字典<br>    定义：字典是Python中的唯一的映射类型。映射类型对象里的哈希值（key）和指向的对象（value）是一对多的关系。它是一个容器类型，能存储任意个数的Python对象，其中也包括其他容器类型。</p>
+深拷贝和浅拷贝：等我了解清楚再来。</code></pre><p>2-6 数据结构-字典<br>    定义：字典是Python中的唯一的映射类型。映射类型对象里的哈希值（key）和指向的对象（value）是一对多的关系。<br>    它是一个容器类型，能存储任意个数的Python对象，其中也包括其他容器类型。</p>
 <pre><code>直接赋值：
     dict = {}
     dict = {&quot;ip&quot;:&quot;127.0.0.1&quot;,&quot;port&quot;:80}
@@ -409,7 +413,7 @@ port:90            port  hash     4145156132846        90
     <footer class="article-footer">
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E4%B8%A4%E7%AB%A0/" rel="tag">前两章</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python%E5%85%A5%E9%97%A8%E5%92%8C%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" rel="tag">Python入门和数据结构</a></li></ul>
 
 
     </footer>
@@ -468,82 +472,6 @@ port:90            port  hash     4145156132846        90
 <h2 id="第五章：异常处理"><a href="#第五章：异常处理" class="headerlink" title="第五章：异常处理"></a>第五章：异常处理</h2><p>##参考文献</p>
 <p>《JAVA编程思想》、尚硅谷教学视频（宋红康讲授）</p>
 <p>作者：Luckyboy</p>
-
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-
-    </footer>
-
-  </div>
-
-  
-
-  
-  
-  
-
-  
-
-</article>
-    
-    <article id="post-hello-world" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/04/04/hello-world/"
-    >Hello World</a> 
-</h2>
- 
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2020/04/04/hello-world/" class="article-date">
-  <time datetime="2020-04-04T12:36:02.729Z" itemprop="datePublished">2020-04-04</time>
-</a>
-      
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-      
-
-      
-      <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
       
       <!-- reward -->
