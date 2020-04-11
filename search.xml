@@ -2,7 +2,7 @@
 <search>
   <entry>
     <title>Java基础笔记</title>
-    <url>/2020/04/04/Java%E7%AC%94%E8%AE%B0/</url>
+    <url>/2020/04/04/Java%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<h2 id="第一章：JAVA的概述"><a href="#第一章：JAVA的概述" class="headerlink" title="第一章：JAVA的概述"></a>第一章：JAVA的概述</h2><h2 id="第二章：基本的语法"><a href="#第二章：基本的语法" class="headerlink" title="第二章：基本的语法"></a>第二章：基本的语法</h2><h2 id="第三章：数组"><a href="#第三章：数组" class="headerlink" title="第三章：数组"></a>第三章：数组</h2><h2 id="第四章：面向对象"><a href="#第四章：面向对象" class="headerlink" title="第四章：面向对象"></a>第四章：面向对象</h2><p>（上）</p>
 <p>（中）</p>
 <p>（下）</p>
@@ -10,6 +10,146 @@
 <p>《JAVA编程思想》、尚硅谷教学视频（宋红康讲授）</p>
 <p>作者：Luckyboy</p>
 ]]></content>
+  </entry>
+  <entry>
+    <title>Python笔记（二）</title>
+    <url>/2020/04/11/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<p>##第三章<br>3-1逻辑结构与控制 if/else/elif<br>    if控制语句：<br>        组成：关键字if、逻辑表达式、逻辑代码<br>        逻辑表达式的结果为：True/False<br>        True：不为空或者0的变量（数组、序列、字典）<br>        False：0、False、None、空的变量(序列、字典)</p>
+<pre><code>if(逻辑表达式)：
+    代码
+
+特殊的： 表达式                          if语句
+         函数    def test():            if(bool((test()-1)):
+                     return False        print(&quot;Test return Flase&quot;)
+else语句：
+    和if语句搭配使用，if和else是一对一的关系。当if（Flase）的时候执行else。
+if(else):
+    do_yes
+else:
+    do_no
+
+
+elif语句：
+    检查多个表达式是否为真，并且有对应的代码。
+    if(表达式1):
+        true1_语句
+    elif(表达式2):
+        true2_语句
+    elif(表达式3):
+        true3_语句
+    else:
+        Flase1_语句
+
+elif和if的嵌套：
+    if嵌套是指if中含有if
+
+        if(表达式1):
+            if(表达式2):
+                true_2语句
+        else:
+            expr1_false_suite</code></pre><p>3-2逻辑控制—While语句<br>    while循环语句：<br>        代码块中会一直执行，知道条件不满足了，结束语句。<br>        while循环语句分为:有限循环和无限循环<br>    while循环语句语法:<br>        while expression:<br>            do_same_task</p>
+<pre><code>while和else语句:
+    只有当while循环正常执行完时才会执行else语句
+        while和else的配合使用
+        i = 0
+        while(i &lt; 10):
+            print(i)
+            i += 1
+        else:
+            print(&quot;when i = %d,over&quot; % i)
+
+break语句:
+    结束当前的循环，跳到下一个语句
+    i = 0                        输出结果
+    when(i &lt; 10):                    0
+        print(i)                    1
+        i += 1                        2
+        if(i == 5):                    3
+            break                     4
+    print(&quot;exec over i = %d&quot; % i)    exec over i = 5
+
+continue和pass:
+    continue语句：
+        结束当前的循环，忽略后面的语句，跳转到循环开始位置，然后根据表达式结果再决定是否循环
+
+    i = 0                         输出结果
+    while(i &lt; 10):                    2
+        i += 2                        4
+        if(i % 2 != 0):                6
+            continue                   8
+        print(i)
+
+    pass语句：
+        空语句，不做任何操作
+        作用：保持代码完整性，站位符或者创建站位程序
+              一些异常处理，不采取任何措施。</code></pre><p>3-3逻辑控制—for语句<br>    for语句：<br>        用来访问一个可迭代对象中的所有元素。并再遍历所有条目以后结束循环。<br>    for语句语法：<br>        for iter_val in iterable:<br>            iter_val_del<br>        循环索引依次从iterable取值，每循环一次就执行一次iter_val_del</p>
+<pre><code>序列：colors = [&quot;green&quot;,&quot;red&quot;,&quot;yellow&quot;,&quot;blue&quot;,&quot;black&quot;]
+    使用序列项迭代：
+        for color in colors:
+            print(color)
+    使用索引进行迭代：
+        for index in range(len(colors)):
+            print(colors[index])
+    使用序列和索引进行迭代：
+        for index, color in enumerate(colors):
+            print(index,color)
+
+遍历字典： dict1 = dict.fromkeys((1,2,3,4,5))
+    for key in dict1:
+        print(key,dict1[key])
+
+访问迭代器：
+    for循环访问迭代器的时候，调用next()方法得到一个条目，然后赋值给目标变量，当访问完后，会产生一个异常。
+    for语句在内部会截取这个异常。
+        for item in dict1.iteritems():
+            print item
+range方法：生成一个整数的list
+    range(start = 0,stop,step = 1)其中step必须大于0
+
+else语句也是当for语句正常执行完以后，才会触发else语句的内容。
+for和else：
+    for i in range(10):
+        print(i)
+    else:
+        print(&quot;over i = %d&quot; % i)
+
+迭代器：
+    迭代器是一个访问集合内元素的一种方式。迭代器对象从集合的第一个元素开始访问，
+    知道所有的元素都被访问一遍以后结束。
+
+    迭代器不能回退，只能往前进行迭代。
+
+    优点：不要求你事先准备好整个迭代过程中所有的元素。
+          提供统一访问集合的接口。
+          迭代非序列集合(文件)
+    迭代器迭代实质：
+        迭代器有一个next()方法的对象，当循环访问迭代器的每个元素时，
+        调用的是迭代器next()方法，当全部元素取出后，会引发一个StopIteration异常，告诉调用者，迭代完成。
+
+    迭代器使用：
+        myiter = iter(&quot;HellWord&quot;)
+        while(True):
+            print(myiter.next())
+
+    for循环语句的实质:
+        for in range(10):
+            print(i)
+        for循环语句会自动调用工厂函数iter()获得迭代器，然后调用next()方法，并且处理异常。</code></pre><p>3-4逻辑控制—列表解析和生成器<br>    列表解析：动态创建列表，在一个序列的值上应用一个任意表达式，把结果收集到一个新的列表中并返回。</p>
+<pre><code>基本语法：[expr for iter_var in iterable]
+    mylist = [x+1 for in range(10)]
+    [1,2,3,4,5,6,7,8,9,10]
+
+扩展与法：[exper for iter_var in iterable if cond_expr]
+mylist = [x+1 for x in range(10) if(x &gt; 5)]
+[7,8,9,10]
+
+生成一个矩阵：
+    myrange</code></pre><p>##参考视频<br>奇猫的Python教学视频</p>
+<p>作者  Luckyboy</p>
+]]></content>
+      <tags>
+        <tag>Python逻辑控制和函数编程</tag>
+      </tags>
   </entry>
   <entry>
     <title>Python笔记(一)</title>
