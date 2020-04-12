@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    Python笔记（二） |  Hexo
+    Python笔记(三) |  Hexo
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -37,7 +37,7 @@
   <div id="app">
     <main class="content on">
       <section class="outer">
-  <article id="post-Python笔记（二）" class="article article-type-post" itemscope
+  <article id="post-Python笔记（三）" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -45,7 +45,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  Python笔记（二）
+  Python笔记(三)
 </h1>
  
 
@@ -54,8 +54,8 @@
 
     
     <div class="article-meta">
-      <a href="/2020/04/11/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-date">
-  <time datetime="2020-04-11T03:48:31.000Z" itemprop="datePublished">2020-04-11</time>
+      <a href="/2020/04/12/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" class="article-date">
+  <time datetime="2020-04-12T07:45:54.000Z" itemprop="datePublished">2020-04-12</time>
 </a>
       
       
@@ -65,7 +65,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.7k</span>
+            <span class="post-count">1k</span>
         </span>
     </span>
 
@@ -74,7 +74,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">6 min</span>
+            <span class="post-count">3 min</span>
         </span>
     </span>
 </div>
@@ -97,184 +97,87 @@
       
 
       
-      <p>##第三章<br>3-1逻辑结构与控制 if/else/elif<br>    if控制语句：<br>        组成：关键字if、逻辑表达式、逻辑代码<br>        逻辑表达式的结果为：True/False<br>        True：不为空或者0的变量（数组、序列、字典）<br>        False：0、False、None、空的变量(序列、字典)</p>
-<pre><code>if(逻辑表达式)：
-    代码
+      <p>##第四章<br>4-1 函数—定义/参数/返回值<br>    函数：<br>        函数是程序对逻辑进化结构化的一种编程方法，使用代码块对逻辑进行隔离，方便代码读写和修改。<br>    Pyhton函数定义：<br>        关键字def + 函数名 + (参数) + ：<br>            process..</p>
+<pre><code>    def foo():            def add(x,y):
+        pass                return x + y
 
-特殊的： 表达式                          if语句
-         函数    def test():            if(bool((test()-1)):
-                     return False        print(&quot;Test return Flase&quot;)
-else语句：
-    和if语句搭配使用，if和else是一对一的关系。当if（Flase）的时候执行else。
-if(else):
-    do_yes
-else:
-    do_no
+    python函数也是对象,函数也有相应的属性。
+    dir(foo)
 
+参数：
+    形参/关键字参数/默认参数：
+        形参：函数被调用，传入的参数必须和函数定义参数位置个数一致。
 
-elif语句：
-    检查多个表达式是否为真，并且有对应的代码。
-    if(表达式1):
-        true1_语句
-    elif(表达式2):
-        true2_语句
-    elif(表达式3):
-        true3_语句
-    else:
-        Flase1_语句
+        关键字参数：关键字参数针对函数调用，这种调用方式可以让调用者使用参数名来区分参数，
+        这种调用方式可以语序参数不按顺序，Python解释器会通过关键字来匹配参数的值。
 
-elif和if的嵌套：
-    if嵌套是指if中含有if
+        默认参数：默认参数声明默认值的参数，如果函数调用过程中，可以不传递该参数。
 
-        if(表达式1):
-            if(表达式2):
-                true_2语句
-        else:
-            expr1_false_suite</code></pre><p>3-2逻辑控制—While语句<br>    while循环语句：<br>        代码块中会一直执行，知道条件不满足了，结束语句。<br>        while循环语句分为:有限循环和无限循环<br>    while循环语句语法:<br>        while expression:<br>            do_same_task</p>
-<pre><code>while和else语句:
-    只有当while循环正常执行完时才会执行else语句
-        while和else的配合使用
-        i = 0
-        while(i &lt; 10):
-            print(i)
-            i += 1
-        else:
-            print(&quot;when i = %d,over&quot; % i)
+        形参/关键字参数                 默认参数:
+        def _power(x,y):            def _power(x = 2, y = 1):
+            return x*y                    return x*y
 
-break语句:
-    结束当前的循环，跳到下一个语句
-    i = 0                        输出结果
-    when(i &lt; 10):                    0
-        print(i)                    1
-        i += 1                        2
-        if(i == 5):                    3
-            break                     4
-    print(&quot;exec over i = %d&quot; % i)    exec over i = 5
+        _power(2,3) = 6                _power() = 2
+        _power(y = 3,x = 2) = 6
+    可变长度参数函数：
+        可变长度参数函数声明中不能被显示命名，以为参数的数目在运行前或者在程序运行中是未知的。
 
-continue和pass:
-    continue语句：
-        结束当前的循环，忽略后面的语句，跳转到循环开始位置，然后根据表达式结果再决定是否循环
+        非关键字可变长度参数(元组)：
+            def func(formal_args,*vargs_args):
+                pass
+            form_args:函数被调用时，非可变参数赋值给函数声明中的局部变量。
+            vargs_args：函数调用时，非关键参数按顺序插入到一个元组中，方便访问。
 
-    i = 0                         输出结果
-    while(i &lt; 10):                    2
-        i += 2                        4
-        if(i % 2 != 0):                6
-            continue                   8
-        print(i)
+        关键字可变长度参数(字典):
+            def func(formal_ars,**vargsed):pass
+            formal_args:函数被调用时，非可变参数赋值给函数声明的局部变量。
+            **vargsed:函数被调用时，不定数目的关键字参数，放到一个字典中，键为参数名，值为相对应的参数值。
+    函数返回值：
+        如果没有显示返回值，返回None
+        如果函数返回值只有一个，那么返回该对象
+        如果函数返回值有多个，那么返回一个元组
+        返回值是序列或者字典，接收返回值方式不同，处理方式也不同。
 
-    pass语句：
-        空语句，不做任何操作
-        作用：保持代码完整性，站位符或者创建站位程序
-              一些异常处理，不采取任何措施。</code></pre><p>3-3逻辑控制—for语句<br>    for语句：<br>        用来访问一个可迭代对象中的所有元素。并再遍历所有条目以后结束循环。<br>    for语句语法：<br>        for iter_val in iterable:<br>            iter_val_del<br>        循环索引依次从iterable取值，每循环一次就执行一次iter_val_del</p>
-<pre><code>序列：colors = [&quot;green&quot;,&quot;red&quot;,&quot;yellow&quot;,&quot;blue&quot;,&quot;black&quot;]
-    使用序列项迭代：
-        for color in colors:
-            print(color)
-    使用索引进行迭代：
-        for index in range(len(colors)):
-            print(colors[index])
-    使用序列和索引进行迭代：
-        for index, color in enumerate(colors):
-            print(index,color)
+    Python中，函数的声明和定义是一起的。
 
-遍历字典： dict1 = dict.fromkeys((1,2,3,4,5))
-    for key in dict1:
-        print(key,dict1[key])
+    def foo():
+        bnar()
 
-访问迭代器：
-    for循环访问迭代器的时候，调用next()方法得到一个条目，然后赋值给目标变量，当访问完后，会产生一个异常。
-    for语句在内部会截取这个异常。
-        for item in dict1.iteritems():
-            print item
-range方法：生成一个整数的list
-    range(start = 0,stop,step = 1)其中step必须大于0
+    def bar():
+        print &quot;in bar()&quot;
+    foo()
 
-else语句也是当for语句正常执行完以后，才会触发else语句的内容。
-for和else：
-    for i in range(10):
-        print(i)
-    else:
-        print(&quot;over i = %d&quot; % i)
+    首先声明foo()函数，然后声明了bar()函数，当我们调用foo()函数的时候,
+    bar()函数已经存在，所以在foo()中可以调用bar成功。</code></pre><p>4-2 函数—作用域/全局变量/局部变量<br>    Python作用域:<br>        local:比如function中的变量所在的作用域就是local<br>        enclosing:某个function被嵌套后的上一层function的作用域<br>        global:当前模块中的全局作用域<br>        built-in:Python内置作用域</p>
+<pre><code>    python变量作用域：由变量在代码中定义位置决定
+        x = 10
+        def foo():
+            print(x)
+            x = 1
+        foo()
+    这个程序执行结果：报错。
+    x = 1 和print(x)位置互换执行结果：1
 
-迭代器：
-    迭代器是一个访问集合内元素的一种方式。迭代器对象从集合的第一个元素开始访问，
-    知道所有的元素都被访问一遍以后结束。
+    python中的if/else/elseif/try/for/while语句不会修改变量作用域。
 
-    迭代器不能回退，只能往前进行迭代。
+变量查找顺序：本地 &gt; 外部 &gt; 全局 &gt; 内置
+    x = 10
+    z = 10
+    def foo():
+        x = 5
+        y = 1
+        def bar():
+            print(&quot;x = %d y = %d z = %d&quot; % (x,y,z))
+        return bar
+    foo()()
 
-    优点：不要求你事先准备好整个迭代过程中所有的元素。
-          提供统一访问集合的接口。
-          迭代非序列集合(文件)
-    迭代器迭代实质：
-        迭代器有一个next()方法的对象，当循环访问迭代器的每个元素时，
-        调用的是迭代器next()方法，当全部元素取出后，会引发一个StopIteration异常，告诉调用者，迭代完成。
+    1.从本地变量查找(bar()的作用域)
+    2.从外部作用域查找(foo()的作用域)
+    3.从全局作用域查找(当前模块)
 
-    迭代器使用：
-        myiter = iter(&quot;HellWord&quot;)
-        while(True):
-            print(myiter.next())
-    判断对象是否可迭代：
-        from collections import Iterable
-        isinstance(obj,Iterable)
-    单迭代对象：
-        只要对象定的话，无论你是否再调用iter()对象，甚至是把这个对象赋值给其他变量名，
-        你会发现这些变量指的是同一个地方
-        map是单迭代对象
-        m1 = range(10);m2 = map(abs,m1);m3 = iter(m2)
-        next(m2)出不来，不知道是不是map的原因 map(函数,一个或多个序列)
-        next(m3)
-
-    for循环语句的实质:
-        for in range(10):
-            print(i)
-        for循环语句会自动调用工厂函数iter()获得迭代器，然后调用next()方法，并且处理异常。</code></pre><p>3-4逻辑控制—列表解析和生成器<br>    列表解析：动态创建列表，在一个序列的值上应用一个任意表达式，把结果收集到一个新的列表中并返回。</p>
-<pre><code>基本语法：[expr for iter_var in iterable]
-    mylist = [x+1 for in range(10)]
-    [1,2,3,4,5,6,7,8,9,10]
-
-扩展与法：[exper for iter_var in iterable if cond_expr]
-mylist = [x+1 for x in range(10) if(x &gt; 5)]
-[7,8,9,10]
-
-生成一个矩阵：
-    myrange = [(x, y, z) for x in range(3) for y in range(3) for z in range(3) ] 
-
-使用列表解析器统计枫树小于60的个数：
-    [x for x in list1 if x &lt; 60]
-    把x满足条件的组成一个新的列表然后返回
-
-将列表中小于60的分数替换为False
-    [x &gt;= 60 and x for x in list1]
-    当x &gt;= 60成立的时候返回X的值，作为列表成员
-    当x &gt;= 60不成立的时候返回Flase，作为列表的成员
-给定一个字符串，得到每个字符串中单词及其对应的长度
-    str = &quot;welcome to python world&quot;
-    stuff = [[world,len(world)] ofr world in str1.split()]
-
-生成器：
-    表达式：它是列表解析器的一个阔转，分会一个生成器，生成器每次计算出一个条目，把这个条目产生出来。生成器使用延迟算法，他在内存上更为有效。
-
-语法：
-    (expr for iter in iterable if cond_expr)
-
-创建:
-    L1 = (val for val in range(10))
-
-访问：L1.next()也可能是next(L1)
-
-列表解析器和生成器表达式区别：
-    列表解析器需要把所有条目创建出来。
-    生成器表达式不需要把条目创建出来，每次计算的时候会把条目创建出来。
-
-在这里需要提及到排序算法，排序算法这里就不作赘述：
-以下为比较累排序：
-    交换排序：冒泡排序、快速排序
-    插入排序：简单插入排序、希尔排序
-    选择排序：简单选择排序、堆排序
-    归并排序：二路归并排序、多路归并排序
-
-以下为非比较排序
-    计数排序、桶排序、基数排序</code></pre><p>##参考视频<br>奇猫的Python教学视频</p>
+    在函数中修改全局变量 global x
+    在内置函数中声明外部函数的局部变量，可以修改 nonlocal x</code></pre><p>4-3 函数—函数式编程<br>    函数式编程：<br>        函数能够接受输入并产生输出<br>    优点：<br>        1.代码复用，编码效率更高，维护方便<br>        2.易于测试和调试<br>        3.模块化，代码更加容易组织<br>        4.封装，多人开发中，保证自己代码不被别人修改<br>        5.双方合作，为了保护核心代码，可以提供Python库和接口</p>
+<p>##参考视频<br>奇猫的Python教学视频</p>
 <p>作者  Luckyboy</p>
 
       
@@ -344,14 +247,14 @@ mylist = [x+1 for x in range(10) if(x &gt; 5)]
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/04/11/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://yoursite.com/2020/04/12/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python%E9%80%BB%E8%BE%91%E6%8E%A7%E5%88%B6/" rel="tag">Python逻辑控制</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python%E5%87%BD%E6%95%B0%E7%BC%96%E7%A8%8B/" rel="tag">Python函数编程</a></li></ul>
 
 
     </footer>
@@ -362,19 +265,10 @@ mylist = [x+1 for x in range(10) if(x &gt; 5)]
   
   <nav class="article-nav">
     
-      <a href="/2020/04/12/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            Python笔记(三)
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/04/05/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/" class="article-nav-link">
+      <a href="/2020/04/11/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Python笔记(一)</div>
+        <div class="article-nav-title">Python笔记（二）</div>
       </a>
     
   </nav>

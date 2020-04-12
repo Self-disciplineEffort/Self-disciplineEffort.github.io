@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Python笔记(三)</title>
-    <url>/2020/04/12/Python%E7%AC%94%E8%AE%B0-%E4%B8%89/</url>
-    <content><![CDATA[]]></content>
+    <title>Java基础笔记</title>
+    <url>/2020/04/04/Java%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="第一章：JAVA的概述"><a href="#第一章：JAVA的概述" class="headerlink" title="第一章：JAVA的概述"></a>第一章：JAVA的概述</h2><h2 id="第二章：基本的语法"><a href="#第二章：基本的语法" class="headerlink" title="第二章：基本的语法"></a>第二章：基本的语法</h2><h2 id="第三章：数组"><a href="#第三章：数组" class="headerlink" title="第三章：数组"></a>第三章：数组</h2><h2 id="第四章：面向对象"><a href="#第四章：面向对象" class="headerlink" title="第四章：面向对象"></a>第四章：面向对象</h2><p>（上）</p>
+<p>（中）</p>
+<p>（下）</p>
+<h2 id="第五章：异常处理"><a href="#第五章：异常处理" class="headerlink" title="第五章：异常处理"></a>第五章：异常处理</h2><p>##参考文献</p>
+<p>《JAVA编程思想》、尚硅谷教学视频（宋红康讲授）</p>
+<p>作者：Luckyboy</p>
+]]></content>
   </entry>
   <entry>
     <title>Python笔记(一)</title>
@@ -303,15 +309,94 @@ port:90            port  hash     4145156132846        90
       </tags>
   </entry>
   <entry>
-    <title>Java基础笔记</title>
-    <url>/2020/04/04/Java%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="第一章：JAVA的概述"><a href="#第一章：JAVA的概述" class="headerlink" title="第一章：JAVA的概述"></a>第一章：JAVA的概述</h2><h2 id="第二章：基本的语法"><a href="#第二章：基本的语法" class="headerlink" title="第二章：基本的语法"></a>第二章：基本的语法</h2><h2 id="第三章：数组"><a href="#第三章：数组" class="headerlink" title="第三章：数组"></a>第三章：数组</h2><h2 id="第四章：面向对象"><a href="#第四章：面向对象" class="headerlink" title="第四章：面向对象"></a>第四章：面向对象</h2><p>（上）</p>
-<p>（中）</p>
-<p>（下）</p>
-<h2 id="第五章：异常处理"><a href="#第五章：异常处理" class="headerlink" title="第五章：异常处理"></a>第五章：异常处理</h2><p>##参考文献</p>
-<p>《JAVA编程思想》、尚硅谷教学视频（宋红康讲授）</p>
-<p>作者：Luckyboy</p>
+    <title>Python笔记(三)</title>
+    <url>/2020/04/12/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
+    <content><![CDATA[<p>##第四章<br>4-1 函数—定义/参数/返回值<br>    函数：<br>        函数是程序对逻辑进化结构化的一种编程方法，使用代码块对逻辑进行隔离，方便代码读写和修改。<br>    Pyhton函数定义：<br>        关键字def + 函数名 + (参数) + ：<br>            process..</p>
+<pre><code>    def foo():            def add(x,y):
+        pass                return x + y
+
+    python函数也是对象,函数也有相应的属性。
+    dir(foo)
+
+参数：
+    形参/关键字参数/默认参数：
+        形参：函数被调用，传入的参数必须和函数定义参数位置个数一致。
+
+        关键字参数：关键字参数针对函数调用，这种调用方式可以让调用者使用参数名来区分参数，
+        这种调用方式可以语序参数不按顺序，Python解释器会通过关键字来匹配参数的值。
+
+        默认参数：默认参数声明默认值的参数，如果函数调用过程中，可以不传递该参数。
+
+        形参/关键字参数                 默认参数:
+        def _power(x,y):            def _power(x = 2, y = 1):
+            return x*y                    return x*y
+
+        _power(2,3) = 6                _power() = 2
+        _power(y = 3,x = 2) = 6
+    可变长度参数函数：
+        可变长度参数函数声明中不能被显示命名，以为参数的数目在运行前或者在程序运行中是未知的。
+
+        非关键字可变长度参数(元组)：
+            def func(formal_args,*vargs_args):
+                pass
+            form_args:函数被调用时，非可变参数赋值给函数声明中的局部变量。
+            vargs_args：函数调用时，非关键参数按顺序插入到一个元组中，方便访问。
+
+        关键字可变长度参数(字典):
+            def func(formal_ars,**vargsed):pass
+            formal_args:函数被调用时，非可变参数赋值给函数声明的局部变量。
+            **vargsed:函数被调用时，不定数目的关键字参数，放到一个字典中，键为参数名，值为相对应的参数值。
+    函数返回值：
+        如果没有显示返回值，返回None
+        如果函数返回值只有一个，那么返回该对象
+        如果函数返回值有多个，那么返回一个元组
+        返回值是序列或者字典，接收返回值方式不同，处理方式也不同。
+
+    Python中，函数的声明和定义是一起的。
+
+    def foo():
+        bnar()
+
+    def bar():
+        print &quot;in bar()&quot;
+    foo()
+
+    首先声明foo()函数，然后声明了bar()函数，当我们调用foo()函数的时候,
+    bar()函数已经存在，所以在foo()中可以调用bar成功。</code></pre><p>4-2 函数—作用域/全局变量/局部变量<br>    Python作用域:<br>        local:比如function中的变量所在的作用域就是local<br>        enclosing:某个function被嵌套后的上一层function的作用域<br>        global:当前模块中的全局作用域<br>        built-in:Python内置作用域</p>
+<pre><code>    python变量作用域：由变量在代码中定义位置决定
+        x = 10
+        def foo():
+            print(x)
+            x = 1
+        foo()
+    这个程序执行结果：报错。
+    x = 1 和print(x)位置互换执行结果：1
+
+    python中的if/else/elseif/try/for/while语句不会修改变量作用域。
+
+变量查找顺序：本地 &gt; 外部 &gt; 全局 &gt; 内置
+    x = 10
+    z = 10
+    def foo():
+        x = 5
+        y = 1
+        def bar():
+            print(&quot;x = %d y = %d z = %d&quot; % (x,y,z))
+        return bar
+    foo()()
+
+    1.从本地变量查找(bar()的作用域)
+    2.从外部作用域查找(foo()的作用域)
+    3.从全局作用域查找(当前模块)
+
+    在函数中修改全局变量 global x
+    在内置函数中声明外部函数的局部变量，可以修改 nonlocal x</code></pre><p>4-3 函数—函数式编程<br>    函数式编程：<br>        函数能够接受输入并产生输出<br>    优点：<br>        1.代码复用，编码效率更高，维护方便<br>        2.易于测试和调试<br>        3.模块化，代码更加容易组织<br>        4.封装，多人开发中，保证自己代码不被别人修改<br>        5.双方合作，为了保护核心代码，可以提供Python库和接口</p>
+<p>##参考视频<br>奇猫的Python教学视频</p>
+<p>作者  Luckyboy</p>
 ]]></content>
+      <tags>
+        <tag>Python函数编程</tag>
+      </tags>
   </entry>
   <entry>
     <title>Python笔记（二）</title>
