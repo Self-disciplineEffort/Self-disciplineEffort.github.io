@@ -76,6 +76,69 @@
     
     
     
+    <article id="post-LeetCodeTestNotes" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/15/LeetCodeTestNotes/"
+    >LeetCodeTestNotes</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/15/LeetCodeTestNotes/" class="article-date">
+  <time datetime="2020-04-15T11:24:23.000Z" itemprop="datePublished">2020-04-15</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-Python笔记（三）" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -191,8 +254,136 @@
     3.从全局作用域查找(当前模块)
 
     在函数中修改全局变量 global x
-    在内置函数中声明外部函数的局部变量，可以修改 nonlocal x</code></pre><p>4-3 函数—函数式编程<br>    函数式编程：<br>        函数能够接受输入并产生输出<br>    优点：<br>        1.代码复用，编码效率更高，维护方便<br>        2.易于测试和调试<br>        3.模块化，代码更加容易组织<br>        4.封装，多人开发中，保证自己代码不被别人修改<br>        5.双方合作，为了保护核心代码，可以提供Python库和接口</p>
-<p>##参考视频<br>奇猫的Python教学视频</p>
+    在内置函数中声明外部函数的局部变量，可以修改 nonlocal x</code></pre><p>4-3 函数—函数式编程<br>    函数式编程：<br>        函数能够接受输入并产生输出<br>    优点：<br>        1.代码复用，编码效率更高，维护方便<br>        2.易于测试和调试<br>        3.模块化，代码更加容易组织<br>        4.封装，多人开发中，保证自己代码不被别人修改<br>        5.双方合作，为了保护核心代码，可以提供Python库和接口<br>4-4 函数—匿名函数和内置函数<br>    匿名函数可以用lambda关键字来创建，一条完整的lambda语句是一个完整的表达式，<br>    返回的值是一个可以调用的函数对象。<br>    基本语法：lambda arg1,arg2…argN:process<br>    实列：lambda x,y:return x + y<br>         lambda : True<br>    lambda:<br>        1.调用lambda产生的函数对象和调用普通的函数对象类似<br>        foo = lambda x,y: return x*<em>y<br>        bar = lambda *x : x<br>        dic = lambda *</em>x:x<br>        2.可以被当作参数传递给函数<br>        def bar(foo):<br>            return foo(2,3)<br>        3.可以使用参数(形参、关键字参数、默认参数、不定长参数)<br>        foo(2,3);    foo(y=2,x=3); bar(1,2,3,4);dic(x=10,y=20)</p>
+<pre><code>lambda和函数对比：
+    def add(x,y):        add = lambda x,y:x+y
+        return x+y &lt;==&gt;                        &lt;==&gt;a = 1 + 1
+    a = add(1,1)        a = add(1,1)
+lambda表达式作为返回值：
+    def foo(x):            
+        return lambda y: x + y
+    add = foo(10)
+    sum = add(10)
+    sum = 20
+lambda和列表解析使用:
+list_foo = [lambda x: x+n for n in range(10)]
+list_foo返回的其实是列表函数也就是每一个元素是函数，
+比如0号元素是lambda x:x
+list_foo[0](10) = 10
+list_foo[1](10) = 11
+list_foo[8](10) = 18
+
+分析列表解析过程：
+    list_foo = [lambda x:x+n for n in range(10)]
+    1.首先for循环引入了全局变量n
+    2.产生一个函数列表：[lambda x: x+n]
+    3.list_foo[0](10)-&gt;lambda:x+n -&gt; 10+n(n是全局白能量，当列表解析完成后，n=9)
+    所以这个列表所有函数都等于：
+        def foo(x):return x+n
+修改列表解析：
+    list_foo = [lambda x,n=n:x+n for in range(10)]
+    结果:
+    list_foo[0](10) = 10
+    list_foo[1](10) = 11
+
+    函数列表内容：
+    lambda 创建函数的时候引入了默认参数n=n，左边这个n是参数，是函数中的局部变量，
+    右边n是列表解析过程中的实际值。
+了解函数的map(function,sequence[,sequence,...]):
+          reduce(function,sqeuence[,initial]):
+          filter(function or None,sequence):
+偏函数：讲函数某个参数固定，并且返回一个新的函数
+    from functools import partial
+        语法：partial(func,*args,**keywords)
+    偏函数示例：
+        讲字符串转化整数(16进制):int(&quot;256&quot;,16)
+        使用偏函数:int16 = partial(int,base=16)
+        int16(&apos;256&apos;)=&gt;转化为10进制的
+    partical实质创建并返回一个新的函数：
+        def int16(x):
+            return int(x,16)</code></pre><p>4-5 函数—函数闭包/装饰器/生成器<br>    闭包：在内部函数中，对外部作用域的变量进行引用，那么这个函数就是闭包。<br>    示例：<br>    def bar(base):<br>        def in_bar(offset):<br>            return base +offset<br>        return in_bar<br>    in_bar()函数引入了外部变量base，使用in_bar()函数就是闭包，当我们调用bar()的时候<br>    返回给我们in_bar()函数，这个in_bar函数就是一个闭包<br>    当我们调用bar(),传入base值，就是外部作用域变量</p>
+<pre><code>闭包的作用：
+    提供数据封装，我们传给闭包一个属性，闭包给我们提供一个调用接口，
+    代码复用，简化代码。
+
+装饰器：
+    是一个包装函数的函数，返回一个修改后的函数对象，把函数重新赋值，
+    返回给原来的标识符，并丧失对原始函数对象的访问。
+装饰器基本语法：
+    @deco(deco_args)        #deco返回值为函数的函数
+    def func(func_args):    #func有参或者无参
+        pass
+    实际结果：func = deco(func)
+多重装饰器：deco1和deco2都是
+          @deco1
+          @deco2
+          def func(arg):
+                  pass
+    其实就是:func = deco1(deco2(func))
+这里是理解的难点，举一个示例。
+def deco(func):                  def deco(func):
+    print(&quot;in deco()&quot;)              print(&quot;in deco()&quot;)
+    func()            使用装饰器     return func
+                               @deco
+def bar():            ---》 》 》        def bar():
+    print(&quot;in bar&quot;)                    print(&quot;in bar&quot;)
+
+deco(bar)                       bar()
+前者并没有装饰效果，因为直接返回了func。
+
+装饰器修改一个函数：
+    def deco(func):
+        print(&quot;in deco()&quot;)
+        def foo():
+            print(&quot;befor call func()&quot;)
+            func()
+            print(&quot;after call func()&quot;)
+        return foo
+
+    print(&quot;befor deco bar&quot;)
+    @deco
+    def bar():
+        print(&quot;in bar&quot;)
+    print(&quot;after call bar&quot;)
+
+    bar()
+上述代码执行过程：
+    装饰器把foo函数返回给bar这个名字，deco的参数func是外部变量，foo调用func的时候
+    其实是原来的bar函数，foo函数也就是一个闭包。当我们在调用bar函数的时候，
+    类似于原来调用deco(bar)(),
+    deco中的foo前面代码只执行一次，因为foo前面代码是外部作用域。
+
+带参数的装饰器在调用的时候需要传入参数。本质上没差异
+
+生成器：
+    一个函数，函数的参数都会保存，当他返回时会记录代码执行到该函数位置。
+    再次调用生成器函数会直接跳转之前位置，而且上次调用的所有局部变量不变。
+
+python生成器：
+    是一个带yield关键字的函数，yield能够返回给调用者一个结果，并且暂时执行，
+    当调用者使用next()再次调用的时候，他会从yield后面语句继续执行。
+python生成器语法： def gen():yield
+示例and分析过程：
+def generators():        gen = generators(): 结果：
+    yield         &gt;&gt;&gt;    gen.next()            None
+    yield 10            gen.next()            10
+    yield 20            gen.next()            20
+                        gen.next()            StopIteration
+    第一次调用：记录当前代码执行位置并返回None
+    第二次调用：从上一次记录的位置开始执行，记录当前位置，返回10
+    第三次调用：从上一次记录的位置开始记录当前位置，返回20
+    第四次调用：没值了所以会报一个异常。
+
+生成器使用：找出给定范围内的偶数
+    def gen_even(max):
+        n = 0
+        whlie(n &lt; max):
+                if(n % 2 == 0):
+                    yield n
+                n++
+
+    even = gen_even(100)
+    even.next()...(这里可以用循环语句输出)</code></pre><p>##参考视频<br>奇猫的Python教学视频</p>
 <p>作者  Luckyboy</p>
 
       
