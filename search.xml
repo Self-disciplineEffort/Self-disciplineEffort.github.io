@@ -1,6 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>LeetCodeTestNotes</title>
+    <url>/2020/04/15/LeetCodeTestNotes/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
+    <title>Java基础笔记</title>
+    <url>/2020/04/04/Java%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+    <content><![CDATA[<h2 id="第一章：JAVA的概述"><a href="#第一章：JAVA的概述" class="headerlink" title="第一章：JAVA的概述"></a>第一章：JAVA的概述</h2><h2 id="第二章：基本的语法"><a href="#第二章：基本的语法" class="headerlink" title="第二章：基本的语法"></a>第二章：基本的语法</h2><h2 id="第三章：数组"><a href="#第三章：数组" class="headerlink" title="第三章：数组"></a>第三章：数组</h2><h2 id="第四章：面向对象"><a href="#第四章：面向对象" class="headerlink" title="第四章：面向对象"></a>第四章：面向对象</h2><p>（上）</p>
+<p>（中）</p>
+<p>（下）</p>
+<h2 id="第五章：异常处理"><a href="#第五章：异常处理" class="headerlink" title="第五章：异常处理"></a>第五章：异常处理</h2><p>##参考文献</p>
+<p>《JAVA编程思想》、尚硅谷教学视频（宋红康讲授）</p>
+<p>作者：Luckyboy</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>Python笔记（四)</title>
+    <url>/2020/04/19/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B)/</url>
+    <content><![CDATA[<p>5-1 类和类属性<br>    类语法： 关键字class + 类名称 + (object):<br>    例如： class myclass(object):<br>                “class document string”<br>                 pass<br>    类属性：和被定义的类绑定，他和任何实列无关。<br>    类数据属性：定义类的变量，可以在类创建后被使用，可以使用类中的方法进行更新。<br>    例如： class C (object):<br>                max = 100<br>           print C.max<br>           C.max = 1000<br>           print C.max<br>5-2    类方法：可以通过类或它的实例来调用方法，方法的第一个参数是类对象不是实例对象<br>    基本语法：class myclass(object):<br>                    def foo(self):<br>                        pass<br>    方法调用过程：<br>    class C(object):<br>           max = 100<br>           def set_max(x):<br>                   max = x<br>    C c ：实例化<br>    c.set_max(1000)  :C的实例调用set_max<br>    C.set_max(999)    :C类调用set_max<br>    set_max(1001)  :直接调用set_max</p>
+<pre><code>1.如果调用失败，可能因为python语法限制，方法必须绑定到一个实例上才能被调用
+虽然调用失败，但是这个方法仍然是类的属性。
+2.如果调用失败，可能因为全局命名空间中，没有这个函数，这个方法属于类。
+类属性          说明
+__name__        类名称
+__doc__            类文档
+__bases__        所有父类构成元组
+__dict__        类所有属性
+__module__        类所在模块
+__class__        实例C对应的类</code></pre><p>5-3 实例和实例属性<br>    实例：根据类创建出来的一个对象。每个实例拥有相同的方法，但是数据可能不同。</p>
+<pre><code>实例初始化：当我们使用函数方式调用一个类，解释器使用类对象来实例化该对象，
+并且设置该类的一些属性并返回该实例。
+
+class myclass(object):
+    &quot;class document string&quot;
+    pass
+c = myclass()
+
+使用type可以确认c是否为类myclass的实例。
+
+__init__构造方法（其实就是Java里面的构造器）:
+1.实例化对象的时候，第一步就是创建实例对象，如果创建成功并且存在
+__init__()方法，那么就会调用该方法，否则就返回实例对象。
+2.当我们实例化的时候，传入的参数第一个是实例本身被__init__接收。
+
+例如： class student(object):
+        注释:当初始化实例的时候调用该方法
+        def __init__(self,name,age):
+            self.name = name
+            self.age = age
+        注释：下面是两个实例化 s1 s2
+       s1 = student(&apos;zhangsan&apos;,15)
+       print s1.name,s1.age
+       s2 = student(&apos;list&apos;,14)
+       print s2.name,s2.age
+
+__new__构造方法：
+1.静态方法，实例化操作的时候生成，和__init__方法参数一样
+__new__方法调用父类方法创建一个实例属性。
+
+class student(object):
+    注释：调用new方法产生并返回实例，然后调用实例的__init__方法
+    def __new__(cls,name,age):
+        print &apos;call __new__&apos;
+        return super(Person,cls)
+        __new__(cls,name,age)
+    注释：__init__方法中的self就是__new__方法产生的实例
+    def __init__(self,name,age):
+        print &apos;call __init__&apos;
+s1 = student(&apos;zhangsan&apos;,15)
+
+__new__方法控制生成实例过程，属于类级别方法。主要是继承一些不可变
+的class时，提供一个自定义之鞋类的实例化过程的途径。还有就是实现自定
+义的metaclass.
+__init__方法用于初始化实例初始化过程，始于实力级别方法
+
+__del__析构方法：当对象引用为0的时候，才会调用，
+如果我们显示定义__del__，我们必须调用父类的__del__方法
+如果我们实例不引用为0，该对象的__del__不能被执行
+class student(object):
+    def __init(self,name,age):
+        print &apos;call __init__&apos;
+    def __del__():
+        print&apos;call __del__&apos;
+
+s1 = student(&apos;zhangsan&apos;,15)
+s2 = s1
+s3 = s1
+ss = student(&apos;lisi&apos;,14)
+注释：student实例引用为0时，执行__del__方法，
+     __del__方法只能被调用一次
+del s1
+del s2
+del s3
+
+实例属性:实例仅拥有数据属性，可以在实例创建后的任
+意位置设置实例的属性。
+
+class student(object):
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+s1 = student(&apos;zhangsan&apos;,12)
+if(s1.age &gt; 11):
+    注释：动态添加实例属性
+    s1.height = 140
+注释：动态属性陷阱，可能没有添加height属性
+print s1.height
+
+查看类的属性可以使用: dir()和 .__dict__
+
+类属性和实例属性区别：
+类属性仅与其被定义的类绑定，它和任何实例都无关
+实例仅拥有数据属性，当一个实例被释放后，它的属性同时清除
+类和实例都有自己的命名空间
+当我们修改类的属性，实例也会受到影响。
+
+class C(object):
+    max = 10
+    def __init__self(self,min):
+        self.min = min
+
+c1 = C(0)
+c2 = C(1)
+c1.min
+c2.min
+c1.max
+c2. max
+c1.max = 100
+下面两者都为10
+c2.max = ?
+C.max = ?
+
+静态方法和类方法:Python的静态犯法和类成员方法都可以被类或实例访问
+可以使用函数修饰符staticmethod和classmethod实现静态方法和类方法
+
+静态方法和类方法不同：
+1.静态方法无需传入self参数，类方法需要传入代表本类的cls参数
+2.静态方法无法访问实例变量和类变量，类也不能访问实例变量
+但是可以访问类变量。
+
+clss C(object):
+    max = 10
+    注释：静态方法
+    @staticmethod
+    def static_func():
+        print &apos;call static_func&apos;
+    注释：类方法
+    @classmethod
+    def class_func(cls):
+        print &apos;call class max = %d&apos; % cls.max
+C.static_func()
+C.class_func()
+c = C()
+c.static_func()
+c.class_func()</code></pre><p>##参考视频<br>奇猫的Python教学视频</p>
+<p>作者  Luckyboy    </p>
+]]></content>
+      <tags>
+        <tag>Python面向对象</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Python笔记(一)</title>
     <url>/2020/04/05/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
     <content><![CDATA[<p>##第一章<br>1-1 Python开发环境<br>    小要求：最好能够熟悉Linux基本操作，Linux是程序员的必备开发使用系统。</p>
@@ -298,193 +460,6 @@ port:90            port  hash     4145156132846        90
       </tags>
   </entry>
   <entry>
-    <title>Python笔记（二）</title>
-    <url>/2020/04/11/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
-    <content><![CDATA[<p>##第三章<br>3-1逻辑结构与控制 if/else/elif<br>    if控制语句：<br>        组成：关键字if、逻辑表达式、逻辑代码<br>        逻辑表达式的结果为：True/False<br>        True：不为空或者0的变量（数组、序列、字典）<br>        False：0、False、None、空的变量(序列、字典)</p>
-<pre><code>if(逻辑表达式)：
-    代码
-
-特殊的： 表达式                          if语句
-         函数    def test():            if(bool((test()-1)):
-                     return False        print(&quot;Test return Flase&quot;)
-else语句：
-    和if语句搭配使用，if和else是一对一的关系。当if（Flase）的时候执行else。
-if(else):
-    do_yes
-else:
-    do_no
-
-
-elif语句：
-    检查多个表达式是否为真，并且有对应的代码。
-    if(表达式1):
-        true1_语句
-    elif(表达式2):
-        true2_语句
-    elif(表达式3):
-        true3_语句
-    else:
-        Flase1_语句
-
-elif和if的嵌套：
-    if嵌套是指if中含有if
-
-        if(表达式1):
-            if(表达式2):
-                true_2语句
-        else:
-            expr1_false_suite</code></pre><p>3-2逻辑控制—While语句<br>    while循环语句：<br>        代码块中会一直执行，知道条件不满足了，结束语句。<br>        while循环语句分为:有限循环和无限循环<br>    while循环语句语法:<br>        while expression:<br>            do_same_task</p>
-<pre><code>while和else语句:
-    只有当while循环正常执行完时才会执行else语句
-        while和else的配合使用
-        i = 0
-        while(i &lt; 10):
-            print(i)
-            i += 1
-        else:
-            print(&quot;when i = %d,over&quot; % i)
-
-break语句:
-    结束当前的循环，跳到下一个语句
-    i = 0                        输出结果
-    when(i &lt; 10):                    0
-        print(i)                    1
-        i += 1                        2
-        if(i == 5):                    3
-            break                     4
-    print(&quot;exec over i = %d&quot; % i)    exec over i = 5
-
-continue和pass:
-    continue语句：
-        结束当前的循环，忽略后面的语句，跳转到循环开始位置，然后根据表达式结果再决定是否循环
-
-    i = 0                         输出结果
-    while(i &lt; 10):                    2
-        i += 2                        4
-        if(i % 2 != 0):                6
-            continue                   8
-        print(i)
-
-    pass语句：
-        空语句，不做任何操作
-        作用：保持代码完整性，站位符或者创建站位程序
-              一些异常处理，不采取任何措施。</code></pre><p>3-3逻辑控制—for语句<br>    for语句：<br>        用来访问一个可迭代对象中的所有元素。并再遍历所有条目以后结束循环。<br>    for语句语法：<br>        for iter_val in iterable:<br>            iter_val_del<br>        循环索引依次从iterable取值，每循环一次就执行一次iter_val_del</p>
-<pre><code>序列：colors = [&quot;green&quot;,&quot;red&quot;,&quot;yellow&quot;,&quot;blue&quot;,&quot;black&quot;]
-    使用序列项迭代：
-        for color in colors:
-            print(color)
-    使用索引进行迭代：
-        for index in range(len(colors)):
-            print(colors[index])
-    使用序列和索引进行迭代：
-        for index, color in enumerate(colors):
-            print(index,color)
-
-遍历字典： dict1 = dict.fromkeys((1,2,3,4,5))
-    for key in dict1:
-        print(key,dict1[key])
-
-访问迭代器：
-    for循环访问迭代器的时候，调用next()方法得到一个条目，然后赋值给目标变量，当访问完后，会产生一个异常。
-    for语句在内部会截取这个异常。
-        for item in dict1.iteritems():
-            print item
-range方法：生成一个整数的list
-    range(start = 0,stop,step = 1)其中step必须大于0
-
-else语句也是当for语句正常执行完以后，才会触发else语句的内容。
-for和else：
-    for i in range(10):
-        print(i)
-    else:
-        print(&quot;over i = %d&quot; % i)
-
-迭代器：
-    迭代器是一个访问集合内元素的一种方式。迭代器对象从集合的第一个元素开始访问，
-    知道所有的元素都被访问一遍以后结束。
-
-    迭代器不能回退，只能往前进行迭代。
-
-    优点：不要求你事先准备好整个迭代过程中所有的元素。
-          提供统一访问集合的接口。
-          迭代非序列集合(文件)
-    迭代器迭代实质：
-        迭代器有一个next()方法的对象，当循环访问迭代器的每个元素时，
-        调用的是迭代器next()方法，当全部元素取出后，会引发一个StopIteration异常，告诉调用者，迭代完成。
-
-    迭代器使用：
-        myiter = iter(&quot;HellWord&quot;)
-        while(True):
-            print(myiter.next())
-    判断对象是否可迭代：
-        from collections import Iterable
-        isinstance(obj,Iterable)
-    单迭代对象：
-        只要对象定的话，无论你是否再调用iter()对象，甚至是把这个对象赋值给其他变量名，
-        你会发现这些变量指的是同一个地方
-        map是单迭代对象
-        m1 = range(10);m2 = map(abs,m1);m3 = iter(m2)
-        next(m2)出不来，不知道是不是map的原因 map(函数,一个或多个序列)
-        next(m3)
-
-    for循环语句的实质:
-        for in range(10):
-            print(i)
-        for循环语句会自动调用工厂函数iter()获得迭代器，然后调用next()方法，并且处理异常。</code></pre><p>3-4逻辑控制—列表解析和生成器<br>    列表解析：动态创建列表，在一个序列的值上应用一个任意表达式，把结果收集到一个新的列表中并返回。</p>
-<pre><code>基本语法：[expr for iter_var in iterable]
-    mylist = [x+1 for in range(10)]
-    [1,2,3,4,5,6,7,8,9,10]
-
-扩展与法：[exper for iter_var in iterable if cond_expr]
-mylist = [x+1 for x in range(10) if(x &gt; 5)]
-[7,8,9,10]
-
-生成一个矩阵：
-    myrange = [(x, y, z) for x in range(3) for y in range(3) for z in range(3) ] 
-
-使用列表解析器统计枫树小于60的个数：
-    [x for x in list1 if x &lt; 60]
-    把x满足条件的组成一个新的列表然后返回
-
-将列表中小于60的分数替换为False
-    [x &gt;= 60 and x for x in list1]
-    当x &gt;= 60成立的时候返回X的值，作为列表成员
-    当x &gt;= 60不成立的时候返回Flase，作为列表的成员
-给定一个字符串，得到每个字符串中单词及其对应的长度
-    str = &quot;welcome to python world&quot;
-    stuff = [[world,len(world)] ofr world in str1.split()]
-
-生成器：
-    表达式：它是列表解析器的一个阔转，分会一个生成器，生成器每次计算出一个条目，把这个条目产生出来。生成器使用延迟算法，他在内存上更为有效。
-
-语法：
-    (expr for iter in iterable if cond_expr)
-
-创建:
-    L1 = (val for val in range(10))
-
-访问：L1.next()也可能是next(L1)
-
-列表解析器和生成器表达式区别：
-    列表解析器需要把所有条目创建出来。
-    生成器表达式不需要把条目创建出来，每次计算的时候会把条目创建出来。
-
-在这里需要提及到排序算法，排序算法这里就不作赘述：
-以下为比较累排序：
-    交换排序：冒泡排序、快速排序
-    插入排序：简单插入排序、希尔排序
-    选择排序：简单选择排序、堆排序
-    归并排序：二路归并排序、多路归并排序
-
-以下为非比较排序
-    计数排序、桶排序、基数排序</code></pre><p>##参考视频<br>奇猫的Python教学视频</p>
-<p>作者  Luckyboy</p>
-]]></content>
-      <tags>
-        <tag>Python逻辑控制</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Python笔记(三)</title>
     <url>/2020/04/12/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%89%EF%BC%89/</url>
     <content><![CDATA[<p>##第四章<br>4-1 函数—定义/参数/返回值<br>    函数：<br>        函数是程序对逻辑进化结构化的一种编程方法，使用代码块对逻辑进行隔离，方便代码读写和修改。<br>    Pyhton函数定义：<br>        关键字def + 函数名 + (参数) + ：<br>            process..</p>
@@ -703,19 +678,190 @@ def generators():        gen = generators(): 结果：
       </tags>
   </entry>
   <entry>
-    <title>Java基础笔记</title>
-    <url>/2020/04/04/Java%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
-    <content><![CDATA[<h2 id="第一章：JAVA的概述"><a href="#第一章：JAVA的概述" class="headerlink" title="第一章：JAVA的概述"></a>第一章：JAVA的概述</h2><h2 id="第二章：基本的语法"><a href="#第二章：基本的语法" class="headerlink" title="第二章：基本的语法"></a>第二章：基本的语法</h2><h2 id="第三章：数组"><a href="#第三章：数组" class="headerlink" title="第三章：数组"></a>第三章：数组</h2><h2 id="第四章：面向对象"><a href="#第四章：面向对象" class="headerlink" title="第四章：面向对象"></a>第四章：面向对象</h2><p>（上）</p>
-<p>（中）</p>
-<p>（下）</p>
-<h2 id="第五章：异常处理"><a href="#第五章：异常处理" class="headerlink" title="第五章：异常处理"></a>第五章：异常处理</h2><p>##参考文献</p>
-<p>《JAVA编程思想》、尚硅谷教学视频（宋红康讲授）</p>
-<p>作者：Luckyboy</p>
+    <title>Python笔记（二）</title>
+    <url>/2020/04/11/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%8C%EF%BC%89/</url>
+    <content><![CDATA[<p>##第三章<br>3-1逻辑结构与控制 if/else/elif<br>    if控制语句：<br>        组成：关键字if、逻辑表达式、逻辑代码<br>        逻辑表达式的结果为：True/False<br>        True：不为空或者0的变量（数组、序列、字典）<br>        False：0、False、None、空的变量(序列、字典)</p>
+<pre><code>if(逻辑表达式)：
+    代码
+
+特殊的： 表达式                          if语句
+         函数    def test():            if(bool((test()-1)):
+                     return False        print(&quot;Test return Flase&quot;)
+else语句：
+    和if语句搭配使用，if和else是一对一的关系。当if（Flase）的时候执行else。
+if(else):
+    do_yes
+else:
+    do_no
+
+
+elif语句：
+    检查多个表达式是否为真，并且有对应的代码。
+    if(表达式1):
+        true1_语句
+    elif(表达式2):
+        true2_语句
+    elif(表达式3):
+        true3_语句
+    else:
+        Flase1_语句
+
+elif和if的嵌套：
+    if嵌套是指if中含有if
+
+        if(表达式1):
+            if(表达式2):
+                true_2语句
+        else:
+            expr1_false_suite</code></pre><p>3-2逻辑控制—While语句<br>    while循环语句：<br>        代码块中会一直执行，知道条件不满足了，结束语句。<br>        while循环语句分为:有限循环和无限循环<br>    while循环语句语法:<br>        while expression:<br>            do_same_task</p>
+<pre><code>while和else语句:
+    只有当while循环正常执行完时才会执行else语句
+        while和else的配合使用
+        i = 0
+        while(i &lt; 10):
+            print(i)
+            i += 1
+        else:
+            print(&quot;when i = %d,over&quot; % i)
+
+break语句:
+    结束当前的循环，跳到下一个语句
+    i = 0                        输出结果
+    when(i &lt; 10):                    0
+        print(i)                    1
+        i += 1                        2
+        if(i == 5):                    3
+            break                     4
+    print(&quot;exec over i = %d&quot; % i)    exec over i = 5
+
+continue和pass:
+    continue语句：
+        结束当前的循环，忽略后面的语句，跳转到循环开始位置，然后根据表达式结果再决定是否循环
+
+    i = 0                         输出结果
+    while(i &lt; 10):                    2
+        i += 2                        4
+        if(i % 2 != 0):                6
+            continue                   8
+        print(i)
+
+    pass语句：
+        空语句，不做任何操作
+        作用：保持代码完整性，站位符或者创建站位程序
+              一些异常处理，不采取任何措施。</code></pre><p>3-3逻辑控制—for语句<br>    for语句：<br>        用来访问一个可迭代对象中的所有元素。并再遍历所有条目以后结束循环。<br>    for语句语法：<br>        for iter_val in iterable:<br>            iter_val_del<br>        循环索引依次从iterable取值，每循环一次就执行一次iter_val_del</p>
+<pre><code>序列：colors = [&quot;green&quot;,&quot;red&quot;,&quot;yellow&quot;,&quot;blue&quot;,&quot;black&quot;]
+    使用序列项迭代：
+        for color in colors:
+            print(color)
+    使用索引进行迭代：
+        for index in range(len(colors)):
+            print(colors[index])
+    使用序列和索引进行迭代：
+        for index, color in enumerate(colors):
+            print(index,color)
+
+遍历字典： dict1 = dict.fromkeys((1,2,3,4,5))
+    for key in dict1:
+        print(key,dict1[key])
+
+访问迭代器：
+    for循环访问迭代器的时候，调用next()方法得到一个条目，然后赋值给目标变量，当访问完后，会产生一个异常。
+    for语句在内部会截取这个异常。
+        for item in dict1.iteritems():
+            print item
+range方法：生成一个整数的list
+    range(start = 0,stop,step = 1)其中step必须大于0
+
+else语句也是当for语句正常执行完以后，才会触发else语句的内容。
+for和else：
+    for i in range(10):
+        print(i)
+    else:
+        print(&quot;over i = %d&quot; % i)
+
+迭代器：
+    迭代器是一个访问集合内元素的一种方式。迭代器对象从集合的第一个元素开始访问，
+    知道所有的元素都被访问一遍以后结束。
+
+    迭代器不能回退，只能往前进行迭代。
+
+    优点：不要求你事先准备好整个迭代过程中所有的元素。
+          提供统一访问集合的接口。
+          迭代非序列集合(文件)
+    迭代器迭代实质：
+        迭代器有一个next()方法的对象，当循环访问迭代器的每个元素时，
+        调用的是迭代器next()方法，当全部元素取出后，会引发一个StopIteration异常，告诉调用者，迭代完成。
+
+    迭代器使用：
+        myiter = iter(&quot;HellWord&quot;)
+        while(True):
+            print(myiter.next())
+    判断对象是否可迭代：
+        from collections import Iterable
+        isinstance(obj,Iterable)
+    单迭代对象：
+        只要对象定的话，无论你是否再调用iter()对象，甚至是把这个对象赋值给其他变量名，
+        你会发现这些变量指的是同一个地方
+        map是单迭代对象
+        m1 = range(10);m2 = map(abs,m1);m3 = iter(m2)
+        next(m2)出不来，不知道是不是map的原因 map(函数,一个或多个序列)
+        next(m3)
+
+    for循环语句的实质:
+        for in range(10):
+            print(i)
+        for循环语句会自动调用工厂函数iter()获得迭代器，然后调用next()方法，并且处理异常。</code></pre><p>3-4逻辑控制—列表解析和生成器<br>    列表解析：动态创建列表，在一个序列的值上应用一个任意表达式，把结果收集到一个新的列表中并返回。</p>
+<pre><code>基本语法：[expr for iter_var in iterable]
+    mylist = [x+1 for in range(10)]
+    [1,2,3,4,5,6,7,8,9,10]
+
+扩展与法：[exper for iter_var in iterable if cond_expr]
+mylist = [x+1 for x in range(10) if(x &gt; 5)]
+[7,8,9,10]
+
+生成一个矩阵：
+    myrange = [(x, y, z) for x in range(3) for y in range(3) for z in range(3) ] 
+
+使用列表解析器统计枫树小于60的个数：
+    [x for x in list1 if x &lt; 60]
+    把x满足条件的组成一个新的列表然后返回
+
+将列表中小于60的分数替换为False
+    [x &gt;= 60 and x for x in list1]
+    当x &gt;= 60成立的时候返回X的值，作为列表成员
+    当x &gt;= 60不成立的时候返回Flase，作为列表的成员
+给定一个字符串，得到每个字符串中单词及其对应的长度
+    str = &quot;welcome to python world&quot;
+    stuff = [[world,len(world)] ofr world in str1.split()]
+
+生成器：
+    表达式：它是列表解析器的一个阔转，分会一个生成器，生成器每次计算出一个条目，把这个条目产生出来。生成器使用延迟算法，他在内存上更为有效。
+
+语法：
+    (expr for iter in iterable if cond_expr)
+
+创建:
+    L1 = (val for val in range(10))
+
+访问：L1.next()也可能是next(L1)
+
+列表解析器和生成器表达式区别：
+    列表解析器需要把所有条目创建出来。
+    生成器表达式不需要把条目创建出来，每次计算的时候会把条目创建出来。
+
+在这里需要提及到排序算法，排序算法这里就不作赘述：
+以下为比较累排序：
+    交换排序：冒泡排序、快速排序
+    插入排序：简单插入排序、希尔排序
+    选择排序：简单选择排序、堆排序
+    归并排序：二路归并排序、多路归并排序
+
+以下为非比较排序
+    计数排序、桶排序、基数排序</code></pre><p>##参考视频<br>奇猫的Python教学视频</p>
+<p>作者  Luckyboy</p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>LeetCodeTestNotes</title>
-    <url>/2020/04/15/LeetCodeTestNotes/</url>
-    <content><![CDATA[]]></content>
+      <tags>
+        <tag>Python逻辑控制</tag>
+      </tags>
   </entry>
 </search>

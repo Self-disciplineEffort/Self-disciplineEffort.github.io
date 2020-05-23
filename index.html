@@ -76,6 +76,209 @@
     
     
     
+    <article id="post-Python笔记（四)" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/19/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B)/"
+    >Python笔记（四)</a> 
+</h2>
+ 
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2020/04/19/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E5%9B%9B)/" class="article-date">
+  <time datetime="2020-04-19T06:51:19.000Z" itemprop="datePublished">2020-04-19</time>
+</a>
+      
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+      
+
+      
+      <p>5-1 类和类属性<br>    类语法： 关键字class + 类名称 + (object):<br>    例如： class myclass(object):<br>                “class document string”<br>                 pass<br>    类属性：和被定义的类绑定，他和任何实列无关。<br>    类数据属性：定义类的变量，可以在类创建后被使用，可以使用类中的方法进行更新。<br>    例如： class C (object):<br>                max = 100<br>           print C.max<br>           C.max = 1000<br>           print C.max<br>5-2    类方法：可以通过类或它的实例来调用方法，方法的第一个参数是类对象不是实例对象<br>    基本语法：class myclass(object):<br>                    def foo(self):<br>                        pass<br>    方法调用过程：<br>    class C(object):<br>           max = 100<br>           def set_max(x):<br>                   max = x<br>    C c ：实例化<br>    c.set_max(1000)  :C的实例调用set_max<br>    C.set_max(999)    :C类调用set_max<br>    set_max(1001)  :直接调用set_max</p>
+<pre><code>1.如果调用失败，可能因为python语法限制，方法必须绑定到一个实例上才能被调用
+虽然调用失败，但是这个方法仍然是类的属性。
+2.如果调用失败，可能因为全局命名空间中，没有这个函数，这个方法属于类。
+类属性          说明
+__name__        类名称
+__doc__            类文档
+__bases__        所有父类构成元组
+__dict__        类所有属性
+__module__        类所在模块
+__class__        实例C对应的类</code></pre><p>5-3 实例和实例属性<br>    实例：根据类创建出来的一个对象。每个实例拥有相同的方法，但是数据可能不同。</p>
+<pre><code>实例初始化：当我们使用函数方式调用一个类，解释器使用类对象来实例化该对象，
+并且设置该类的一些属性并返回该实例。
+
+class myclass(object):
+    &quot;class document string&quot;
+    pass
+c = myclass()
+
+使用type可以确认c是否为类myclass的实例。
+
+__init__构造方法（其实就是Java里面的构造器）:
+1.实例化对象的时候，第一步就是创建实例对象，如果创建成功并且存在
+__init__()方法，那么就会调用该方法，否则就返回实例对象。
+2.当我们实例化的时候，传入的参数第一个是实例本身被__init__接收。
+
+例如： class student(object):
+        注释:当初始化实例的时候调用该方法
+        def __init__(self,name,age):
+            self.name = name
+            self.age = age
+        注释：下面是两个实例化 s1 s2
+       s1 = student(&apos;zhangsan&apos;,15)
+       print s1.name,s1.age
+       s2 = student(&apos;list&apos;,14)
+       print s2.name,s2.age
+
+__new__构造方法：
+1.静态方法，实例化操作的时候生成，和__init__方法参数一样
+__new__方法调用父类方法创建一个实例属性。
+
+class student(object):
+    注释：调用new方法产生并返回实例，然后调用实例的__init__方法
+    def __new__(cls,name,age):
+        print &apos;call __new__&apos;
+        return super(Person,cls)
+        __new__(cls,name,age)
+    注释：__init__方法中的self就是__new__方法产生的实例
+    def __init__(self,name,age):
+        print &apos;call __init__&apos;
+s1 = student(&apos;zhangsan&apos;,15)
+
+__new__方法控制生成实例过程，属于类级别方法。主要是继承一些不可变
+的class时，提供一个自定义之鞋类的实例化过程的途径。还有就是实现自定
+义的metaclass.
+__init__方法用于初始化实例初始化过程，始于实力级别方法
+
+__del__析构方法：当对象引用为0的时候，才会调用，
+如果我们显示定义__del__，我们必须调用父类的__del__方法
+如果我们实例不引用为0，该对象的__del__不能被执行
+class student(object):
+    def __init(self,name,age):
+        print &apos;call __init__&apos;
+    def __del__():
+        print&apos;call __del__&apos;
+
+s1 = student(&apos;zhangsan&apos;,15)
+s2 = s1
+s3 = s1
+ss = student(&apos;lisi&apos;,14)
+注释：student实例引用为0时，执行__del__方法，
+     __del__方法只能被调用一次
+del s1
+del s2
+del s3
+
+实例属性:实例仅拥有数据属性，可以在实例创建后的任
+意位置设置实例的属性。
+
+class student(object):
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+s1 = student(&apos;zhangsan&apos;,12)
+if(s1.age &gt; 11):
+    注释：动态添加实例属性
+    s1.height = 140
+注释：动态属性陷阱，可能没有添加height属性
+print s1.height
+
+查看类的属性可以使用: dir()和 .__dict__
+
+类属性和实例属性区别：
+类属性仅与其被定义的类绑定，它和任何实例都无关
+实例仅拥有数据属性，当一个实例被释放后，它的属性同时清除
+类和实例都有自己的命名空间
+当我们修改类的属性，实例也会受到影响。
+
+class C(object):
+    max = 10
+    def __init__self(self,min):
+        self.min = min
+
+c1 = C(0)
+c2 = C(1)
+c1.min
+c2.min
+c1.max
+c2. max
+c1.max = 100
+下面两者都为10
+c2.max = ?
+C.max = ?
+
+静态方法和类方法:Python的静态犯法和类成员方法都可以被类或实例访问
+可以使用函数修饰符staticmethod和classmethod实现静态方法和类方法
+
+静态方法和类方法不同：
+1.静态方法无需传入self参数，类方法需要传入代表本类的cls参数
+2.静态方法无法访问实例变量和类变量，类也不能访问实例变量
+但是可以访问类变量。
+
+clss C(object):
+    max = 10
+    注释：静态方法
+    @staticmethod
+    def static_func():
+        print &apos;call static_func&apos;
+    注释：类方法
+    @classmethod
+    def class_func(cls):
+        print &apos;call class max = %d&apos; % cls.max
+C.static_func()
+C.class_func()
+c = C()
+c.static_func()
+c.class_func()</code></pre><p>##参考视频<br>奇猫的Python教学视频</p>
+<p>作者  Luckyboy    </p>
+
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/" rel="tag">Python面向对象</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+  
+  
+
+  
+
+</article>
+    
     <article id="post-LeetCodeTestNotes" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
