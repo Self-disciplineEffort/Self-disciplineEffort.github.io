@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-05-23T01:43:19.273Z</updated>
+  <updated>2020-05-24T02:53:43.372Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Python笔记（五）</title>
+    <link href="http://yoursite.com/2020/05/24/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/"/>
+    <id>http://yoursite.com/2020/05/24/Python%E7%AC%94%E8%AE%B0%EF%BC%88%E4%BA%94%EF%BC%89/</id>
+    <published>2020-05-24T00:47:41.000Z</published>
+    <updated>2020-05-24T02:53:43.372Z</updated>
+    
+    <content type="html"><![CDATA[<p>5-4 子类和继承<br>    创建类：class subClass(Parent1[Parent1[Parent2,Parent3…]])<br>    子类拥有父类的所有属性，并且可以自己添加自己的属性和方法</p><pre><code>注释：父类P：数据max  方法：base() foo() class P(object):     max = 10     def base():         print &quot;in parent base&quot;     def foo():         print &quot;in parent foo max = %d&quot;,max 注释：子类sub:max 方法：base(),foo() class sub(P):     def foo1():         print &quot;in sub foo1 max = %d&quot;,max s = sub() s.foo1() 注释：使用的是sub类自己派生的方法 s.base() 注释：使用的是sub中继承P类的base()方法</code></pre><p>5-5 继承属性<br>    class P(object):<br>        “Parent Class”<br>        max = 10<br>        def <strong>init</strong>(self):<br>            print “P init”<br>    Class C(P):<br>        pass<br>P.max = 10<br>print(C.max) 注释：C继承P类，所以C.max = 10<br>P.max = 100<br>print(C.max) 注释：当父类修改某个属性，子类也会改变 C.max = 100<br>                   可以使用ID命令看到他们的地址是一样的<br>C.max = 99<br>print(P.max) 注释：当修改子类的max属性后，子类的max属性覆盖了父类<br>P.max = 1000       的max属性，所以P.max不会改变，在修改P.max时，<br>print(C.max)       C.max也不会受影响，可以使用ID看看地址变化。</p><p>pa = P()     注释：生成实例pa,调用P的<strong>init</strong>方法，输出 P init<br>pa.<strong>class</strong> 注释：pa所属类名：<strong>main</strong>.P<br>P.<strong>doc</strong>    注释：P类文档： Parent Class<br>P.<strong>bases</strong>  注释：P类父类：（object）</p><p>ch = C()     注释：C类没有<strong>init</strong>方法，因此继承P类的方法，<br>                   实例化过程输出 P init<br>ch.<strong>class</strong> 注释： ch的类名：<strong>main</strong>.C<br>C.<strong>doc</strong>    注释：<strong>doc</strong>是特殊的属性，子类不能继承父类的<strong>doc</strong>属性<br>C.<strong>bases</strong>  注释：C的父类是(<strong>main</strong>.P),<strong>base</strong>属性时父类的集合</p><p>5-6 重载<br>    重载：相同的方法在不同类中不同的实现<br>        class Person(object):<br>            def <strong>init</strong>(self,name,age):<br>                self.name = name<br>                self.age = age<br>            def eat(self):<br>                print “Preson eat”</p><pre><code>    class Student(Person):        def __init__(self,name,age,grade)            self.grade = grade        def eat(self):            print &quot;Student eat&quot;Preson类，定义了人的属性，Student类继承了P类，重载了__init__、eat方法s1 = Student(&quot;zhangsan&quot;,10,3)s1.name = zhangsans1.age = 10s1.grade = 3s1.eat()为子类的方法重新修改Student类：        class Student(Person):            def __init__(self,name,age,grade):                Person.__init__(self,name,age)                self.grade = grade            def eat():                print &quot;Student eat&quot;如何在子类中调用父类的方法？比如 s1 = Student(&quot;zhangsan&quot;,10,3)    s1.eat()如何调用P类的eat()    在子类的eat方法中添加一句  Persoon.eat(self) 就可以了直接在子类中使用父类名调用父类的方法弊端：class A (object):                def foo(self):        print &quot;in A foo&quot;class B (object):                def foo(self):        print &quot;in B foo&quot;class C (A):                def foo(self):        A.foo(self) C继承A，并且调用了A的foo()的方法，如果C类的父类改为B类 我们就需要修改C类的代码，如果方法多了那么就显得太麻烦了 super:直接用类名调用父类：class A (object):                def foo(self):        print &quot;in A foo&quot;class B (object):                def foo(self):        print &quot;in B foo&quot;class C (A):                def foo(self):        super(C,self).foo()通过super方式可以解决上面问题多重继承：子类继承多个基类（父类）。多重继承问题：如何在父类中找到子类中没有或者调用父类的方法。Python类分为经典类和新式类经典类是默认没有派生自某个基类：class A：                                pass经典类多重继承的时候采用从左到右，深度优先的匹配方法新式类默认派生object基类：class A（object）：                            pass新式类采用广度优先匹配法则经典类是没有__MRO__和instance.mro()调用的，而新式类是有的分析GR类方法的查找顺序：class P1(object) :        def foo(self):        print &quot;in A foo&quot;class P2(object):    def foo(self):        pass    def foo1(self):        print &quot;in P2 foo1&quot;class C1(P1, P2) :    passclass C2(P1, P2) :    def foo1(self):         print &quot;C2 foo1&quot;class GR(C1,C2):    passgr = GR()gr.foo()gr.foo1()P1和P2的object去掉，经典类查找顺序：GR.foo()查找过程：GR &gt; C1 &gt; P1GR.FOO1()查找过程：GR &gt; C1 &gt; P1 &gt; P2新式类查找顺序：GR.foo()查找过程：GR &gt; C1 &gt; C2 &gt; P1GR.foo1()查找过程：GR &gt; C1 &gt; C2新式类有__mro__属性，可以知道查找顺序。</code></pre><p>5-7 组合<br>    组合：当一个类被定义后，就可以当作一个模块来使用，<br>    可以把不同的类混合合并加入到其他类中，来增加功能和代码的重用性。<br>    class Teachers(object):<br>        def <strong>init</strong>(self,num):<br>            self.num = num</p><pre><code>class Students(object):    def __init__(self,num):        self.num = numclass School(objecct):    def __init__(self,name,teachers,students):        self.name = name        注释：School自由身和Teachers与Students类组合而成        self.teachers = teachers         selfstudents = students分别创建Teachers和Students实例，然后创建一个学校实例sch = School(&quot;清华&quot;,Teachers(1000),Students(200000))sch.namesch.techers.num 注释：访问学校老师数量sch.students.num 注释：访问学校学生数量</code></pre><p>5-8 类内建函数<br>    issubclass(X,b)            X是否是B的一个子类<br>    isinstance(object,A)    object是否是A的实例<br>    hasattr()/getatter()/<br>    setattr()/delattr()        得到和设置或者实例的属性<br>    dir([object])            得到类的属性<br>    super()                    根绝子类找到父类，类必须是新式类<br>    vars([object])            返回类属性，没有object返回locals()</p><pre><code>类有很多特殊方法：__strt__:字符输出运算：__add__,__sub__,__mul__,__div__等比较：__cmp__构建自己的类：需求：给定一个浮点数，只保小数点后两位                  实现加减乘除，支持print.class F(object):    def __init__(self,val):        self.data = round(val,2)    def __str__(self):        return str(self.data)    def __add__(self,other):        return F(self.data + other.data)f1 = F(10.202)f2 = F(2.457)私有化类属性：使用双下划线(__)开始的属性和方法不能通过类和实例直接访问class F(object):    def __init__(self,val):        self.__data = val 注释：不能直接访问该属性    def show_data(self):        print self.__dataf = F(10)f.__data 注释：访问失败，可以dir看一下类属性f.show_data() 注释：可以正常访问包装：对于一个存在的对象进行包装，增加新的，删除不要    或者对已存在属性进行修改授权：所有跟新功能有新的类来完成，已经存在的功能    授权给默认属性，关键实现__getatter__()重载class W(object):    def __init__(self,obj):        self.__data = obj    def get(self):        return self.__data    def __str__():        return str(self.__data)    def __getattr__(self,attr):        return getattr(self.__data,attr)list1 = W([1,2,3])list1 [1,2,3]list1.index(2)[1]list1.pop()list1 [1,2]</code></pre><p>##参考视频<br>奇猫的Python教学视频</p><p>作者  Luckyboy</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;5-4 子类和继承&lt;br&gt;    创建类：class subClass(Parent1[Parent1[Parent2,Parent3…]])&lt;br&gt;    子类拥有父类的所有属性，并且可以自己添加自己的属性和方法&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;注释：父类P：数据max  
+      
+    
+    </summary>
+    
+    
+    
+      <category term="Python面向对象（子类与继承）" scheme="http://yoursite.com/tags/Python%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%88%E5%AD%90%E7%B1%BB%E4%B8%8E%E7%BB%A7%E6%89%BF%EF%BC%89/"/>
+    
+  </entry>
   
   <entry>
     <title>Python笔记（四)</title>
